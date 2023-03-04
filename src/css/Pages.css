@@ -1,0 +1,98 @@
+
+.main {
+  background-image: url("mid3BG.png");
+  background-size:cover;
+  /* background-position:center; */
+  height:100%;
+  width: 100%;
+}
+
+.main2 {
+  /* background-color: white; */
+  height: 100%;
+  width:100%;
+}
+
+.headerContainer{
+    width: 100%;
+    background-color: bisque;
+    display: flex;
+  }
+  
+  .courseCompassLogo{
+    width: 30%;
+    float: left;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .courseCompassLogo{
+    width: 70%;
+    float: left;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid yellow;
+}  
+
+.flex-child1 {
+    flex: 5;
+    border: 2px solid yellow;
+} 
+
+.flex-child:first-child {
+    margin-right: 20px;
+} 
+
+.flex-child1:first-child {
+    margin-right: 20px;
+} 
+
+.TextField-without-border-radius fieldset {
+  border-radius: 0;
+}
+
+.inputRounded .MuiOutlinedInput-root {
+  border-radius: 30px;
+  background-color: #dae7f370;
+}
+
+.mainContainer {
+  /* background-color: rgb(158, 130, 185); */
+}
+
+.secContainer {
+  /* background-color: pink; */
+  padding-top: 2%;
+  border-left: 20px;
+}
+
+.secContainerResults {
+  /* background-color: rgb(231, 206, 210); */
+  padding-left: 2%;
+  padding-top: 5%;
+  border-left: 20px;
+}
+
+.gridItem {
+  /* background-color: white; */
+  border-bottom: 10px;
+  padding-left: 5%;
+}
+
+.filterContainer {
+  padding: 10%;
+  height: 100%;
+  width: 100%;
+}

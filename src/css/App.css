@@ -1,0 +1,140 @@
+ .App {
+  text-align: center;
+}
+
+.maincontainer {
+  width: 100%;
+  padding-top: 10%;
+  height: auto;
+}
+
+.containersearch {
+  width: 100%;
+  padding-top: 2%;
+  text-align: center;
+  height: auto;
+}
+
+.containerheader{
+  vertical-align: middle;
+  text-align: center;
+  font-size: 200%;
+}
+.containerresults{
+  width: 100%;
+  padding-top: 2%;
+  text-align: center;
+  height: auto;
+}
+
+.textfield{
+  width: auto;
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.searchbutton{
+  width: auto;
+  padding-left: 2%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  align-items: flex-end;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.spin{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20%;
+}
+
+/* Hovering achieved with: http://www.menucool.com/tooltip/css-tooltip */
+
+.tooltip {
+  display:inline-block;
+  position:relative;
+  border-bottom:1px dotted #666;
+  text-align:left;
+}
+
+.tooltip .bottom {
+  min-width:200px; 
+  top:40px;
+  left:50%;
+  transform:translate(-50%, 0);
+  padding:10px 20px;
+  color:#072043;
+  background-color:hsl(215, 36%, 86%);
+  font-weight:normal;
+  font-size:13px;
+  border-radius:8px;
+  position:absolute;
+  z-index:99999999;
+  box-sizing:border-box;
+  box-shadow:0 1px 8px rgba(0,0,0,0.5);
+  display:none;
+}
+
+.tooltip:hover .bottom {
+  display:block;
+}
+
+.tooltip .bottom i {
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  margin-left:-12px;
+  width:24px;
+  height:12px;
+  overflow:hidden;
+}
+
+.tooltip .bottom i::after {
+  content:'';
+  position:absolute;
+  width:12px;
+  height:12px;
+  left:50%;
+  transform:translate(-50%,50%) rotate(45deg);
+  background-color:#a2bee5;
+  box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
