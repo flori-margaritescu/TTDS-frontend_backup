@@ -46,7 +46,7 @@ function SearchBar(props) {
         />
 
         <IconButton
-        variant="contained" onClick={props.clickAction} size="large" style={{ color: "#133c5a" }}>
+         variant="contained" onClick={props.clickAction} size="large" style={{ color: "#133c5a" }}>
          <SearchIcon size="large" style={{minWidth: '40px', minHeight: '40px'}}/>
         </IconButton>
         </Grid>

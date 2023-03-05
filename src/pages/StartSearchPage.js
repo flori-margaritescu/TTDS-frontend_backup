@@ -28,11 +28,6 @@ function StartSearchPage(props) {
     setAdvancedSearch(!isAdvancedSearch);
   };
 
-  const styles = {
-    paperContainer: {
-        backgroundImage: 'url(${Background})'
-    }
-};
   // timer used to periodically check the status of the backend
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,6 +55,7 @@ function StartSearchPage(props) {
   useEffect(() => {
     if (backendResponse) {
     const myJsonString = JSON.stringify(backendResponse);
+    console.log("code flori now")
     console.log(myJsonString)
     navigate('/results', { state: { data: myJsonString }});
   }
@@ -72,9 +68,10 @@ function StartSearchPage(props) {
     .then((response) => {
       const res =response.data
       setBackendResponse(({
-        results: res.userInputResult,
-        ack: res.acknowledgement,
-        advancedSearch: res.advancedSearch}))
+        userInput: res.userInput,
+        advancedSearch: res.advancedSearch,
+        results: res.results}))
+      console.log(JSON.stringify(response.data))
     }).catch((error) => {
       if (error.response) {
         console.log(error.response)

@@ -6,9 +6,9 @@ import styles from "../css/Pages.css";
 
 function Header() {
   return (
-    <div position="static" style={{ "background-image": "linear-gradient(to bottom, #395e7e, #FFFFFF)" ,height:"15vh", position:"static"}}>
+    <div position="static" style={{ "background-image": "linear-gradient(to bottom, #395e7e, #FFFFFF)" ,height:"16vh", position:"static"}}>
         <div>
-                <img src={logo} width="35%" style={{objectFit:"contain", paddingLeft:"1%"}}></img>
+                <img src={logo} width="40%" style={{objectFit:"contain", paddingLeft:"1%"}}></img>
         </div> 
     </div>
 

@@ -22,6 +22,7 @@ import Switch from '@mui/material/Switch';
 import Popover from '@mui/material/Popover';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ResultList from '../components/ResultList';
+import ScrollButton from '../components/ScrollUpButton';
 
 function ResultsView(props) {
 
@@ -29,13 +30,12 @@ function ResultsView(props) {
 
     // obtain user results from start search page
     const JSONprofilestring = location.state.data;
-    console.log(JSONprofilestring)
     const searchResult = JSON.parse(JSONprofilestring);
 
-
     // from the start search page - todo: put all common functionality somewhere shared
+    const [resultsUpdated, setResultsUpdated] = useState(false)
     const [backendResponse, setBackendResponse] = useState(null); 
-    const [message, setMessage] = useState(searchResult["ack"]);
+    const [message, setMessage] = useState(searchResult["userInput"]);
     const [updated, setUpdated] = useState(message);
     const [backendStatus, setBackendStatus] = useState(false);
     const [count, setCount] = useState(0);
@@ -43,10 +43,11 @@ function ResultsView(props) {
     const [openSource, setOpenSource] = useState(false);
     const [openFormat, setOpenFormat] = useState(false);
     const [sourceCheckBoxes, setSourceCheckbox] = useState([false,false]);  // Khan Academy, MIT
-    const [formatCheckBoxes, setFormatCheckbox] = useState([false,false]); // Lecture slides, Videos
+    const [formatCheckBoxes, setFormatCheckbox] = useState([false,false, false]); // Lecture slides, Videos, Articles
     const [isExtendedSearch, setExtendedSearch] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const messageToBackend = { userInput: message, advancedSearch:isAdvancedSearch };
+    
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -100,6 +101,7 @@ function ResultsView(props) {
           backgroundImage: 'url(${Background})'
       }
   };
+  
     // timer used to periodically check the status of the backend
     useEffect(() => {
       const interval = setInterval(() => {
@@ -108,7 +110,12 @@ function ResultsView(props) {
       checkBackend();
       return () => clearInterval(interval);
     }, [count]);
-  
+
+      // // timer used to periodically check the status of the backend
+      // useEffect(() => {
+      //   window.location.reload(false);
+      // }, [searchResult]);
+
     // checking the status of the backend via web requests
     function checkBackend() {
       axios.get("/check")
@@ -127,20 +134,27 @@ function ResultsView(props) {
     useEffect(() => {
       if (backendResponse) {
       const myJsonString = JSON.stringify(backendResponse);
-      console.log(myJsonString)
       navigate('/results', { state: { data: myJsonString }});
-    }
+      setResultsUpdated(!resultsUpdated);
+    } 
     }, [backendResponse, navigate]);
-  
+    
+
+    // TODO: FIX PAGE REFRESH MECHANISM
+    // useEffect(() => {
+    //   if (performance.navigation.type == 1) {
+    //    getData()
+    // } 
+    // }, [window.performance]);
+
     // calls the backend and obtains search results for user query
-    const messageToBackend = { userInput: message, advancedSearch:isAdvancedSearch };
     function getData() {
       axios.post("/profile", messageToBackend)
       .then((response) => {
         const res =response.data
         setBackendResponse(({
-          results: res.userInputResult,
-          ack: res.acknowledgement,
+          results: res.results,
+          userInput: res.userInput,
           advancedSearch: res.advancedSearch}))
       }).catch((error) => {
         if (error.response) {
@@ -161,8 +175,9 @@ function ResultsView(props) {
           <Grid item xs={12} sm={12}>
                <Header/>
           </Grid>
-
-          <Grid item xs={3} sm={3} style={{textAlign:"right", paddingTop:"3.5%"}}>
+ 
+          {/* Filter popover functionality */}
+          <Grid item xs={3.5} sm={3.5} style={{textAlign:"right", paddingTop:"3.5%"}}>
           <div>
           <Button aria-describedby={id} 
           variant="contained" 
@@ -244,6 +259,7 @@ function ResultsView(props) {
 
                <Collapse in={openFormat} timeout="auto" unmountOnExit>
                <List component="div" disablePadding>
+
                     <ListItemButton sx={{ pl: 4 }}>
                     <input type="checkbox" 
                     checked={formatCheckBoxes[0]}
@@ -251,6 +267,7 @@ function ResultsView(props) {
                     />
                     <ListItemText primary="Lecture slides" />
                     </ListItemButton>
+
                     <ListItemButton sx={{ pl: 4 }}>
                     <input type="checkbox" 
                     checked={formatCheckBoxes[1]}
@@ -258,6 +275,15 @@ function ResultsView(props) {
                     />
                     <ListItemText primary="Videos" />
                     </ListItemButton>
+
+                    <ListItemButton sx={{ pl: 4 }}>
+                    <input type="checkbox" 
+                    checked={formatCheckBoxes[2]}
+                    onChange={() => handleFormatCheckBoxes(1)}
+                    />
+                    <ListItemText primary="Articles" />
+                    </ListItemButton>
+
                </List>
                </Collapse>
           </List>
@@ -268,7 +294,7 @@ function ResultsView(props) {
           </Grid>
 
            {/* Search bar */}
-          <Grid item xs={9} sm={9}  style={{float:"left", paddingTop:"3%"}}>
+          <Grid item xs={8.5} sm={8.5}  style={{float:"left", paddingTop:"3%"}}>
 
               <Grid item xs={12} sm={12} style={{float:"left", paddingLeft:"2%"}}>
                 <SearchBar
@@ -297,10 +323,15 @@ function ResultsView(props) {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-            <label style={{float:"right", paddingRight:"15%", paddingTop: "2%"}}>Results: </label>
-               <ResultList/>
-            </Grid>
 
+               <ResultList
+               resultList = {searchResult["results"]}
+               resultsUpdated = {resultsUpdated}
+               />
+               <div style={{float:"center", paddingBottom:"5%"}}>
+                <ScrollButton/>
+               </div>
+            </Grid>
         </Grid> 
 </div> 
 </Box>
